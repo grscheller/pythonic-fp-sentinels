@@ -69,8 +69,6 @@ class SBool(int):
 
     """
 
-    __slots__ = ('_flavor',)
-
     def __new__(cls) -> SBool:
         return super(SBool, cls).__new__(cls, 0)
 
