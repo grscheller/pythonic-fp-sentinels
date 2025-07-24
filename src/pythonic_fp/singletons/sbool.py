@@ -50,7 +50,7 @@ __all__ = ['SBool', 'Truth', 'Lie', 'TRUTH', 'LIE']
 
 
 class SBool(int):
-    """Subclassable Boolean-like class.
+    """Subclassable Boolean hierarchy.
 
     This class's sub-types represent different "flavors" of "truth"
     where each flavor has one unique "truthy" and one unique "falsy"

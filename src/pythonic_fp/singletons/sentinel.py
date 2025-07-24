@@ -23,7 +23,7 @@ from typing import final
 
 @final
 class Sentinel:
-    """Singleton classes representing a sentinel values.
+    """Singleton classes representing sentinel values.
 
     - intended for library code, not to be exported/shared between modules
 

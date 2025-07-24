@@ -14,14 +14,14 @@
 
 """Pythonic FP - Singletons
 
-- Singletons (*module* `pythonic_fp.fptools.singletons`)
+Singletons (*module* `pythonic_fp.singletons`)
 
-  - 4 singleton classes that can represent
+- 4 singleton classes that can represent
 
-    - missing values (actually missing, not potentially missing)
-    - sentinel values
-    - failed calculations
-    - boolean-like types with "truthy" and "falsy" subtypes
+  - missing values (actually missing, not potentially missing)
+  - sentinel values
+  - failed calculations
+  - boolean-like types with "truthy" and "falsy" subtypes
 
 """
 

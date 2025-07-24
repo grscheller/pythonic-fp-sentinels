@@ -29,7 +29,7 @@ class NoValue:
 
     **Usage:**
 
-    - ``import NoValue`` from ``pythonic-fp.fptools.singletons`` and then
+    - ``import NoValue`` from ``pythonic-fp.singletons`` and then
 
       - either use ``NoValue()`` directly
       - or define ``_noValue: Final[NoValue] = NoValue()`` don't export it
