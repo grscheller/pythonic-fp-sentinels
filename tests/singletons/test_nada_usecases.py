@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from pythonic_fp.circulararray.resizing import ca
+from pythonic_fp.circulararray.auto import ca
 from pythonic_fp.singletons.nada import Nada
 
 nada = Nada()
