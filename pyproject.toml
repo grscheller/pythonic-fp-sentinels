@@ -25,7 +25,7 @@ dynamic = ["description"]
 [project.optional-dependencies]
 test = [
   "pytest>=8.4.1",
-  "pythonic-fp.circulararray>=5.3.0",
+  "pythonic-fp-circulararray>=5.3.0",
 ]
 
 [project.urls]
