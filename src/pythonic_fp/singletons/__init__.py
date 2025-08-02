@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Singletons
+"""Singletons.
 
-Singletons (*module* `pythonic_fp.singletons`)
-
-- 4 singleton classes that can represent
+Four singleton classes that can represent
 
   - missing values (actually missing, not potentially missing)
   - sentinel values
