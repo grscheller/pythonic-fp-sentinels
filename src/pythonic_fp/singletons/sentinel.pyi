@@ -12,12 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Final
-from pythonic_fp.singletons.novalue import NoValue
+__all__ = ['Sentinel']
 
-_noValue: Final[NoValue] = NoValue()
+from typing import final
 
+@final
+class Sentinel:
+    __slots__ = ('_sentinel_name',)
 
-class Test_str:
-    def test_noValue_str(self) -> None:
-        assert str(_noValue) == 'NoValue()'
+    _instances: dict[str, Sentinel]
+
+    def __init__(self, sentinel_name: str) -> None: ...
+    def __new__(cls, sentinel_name: str) -> Sentinel: ...
+    def __repr__(self) -> str: ...

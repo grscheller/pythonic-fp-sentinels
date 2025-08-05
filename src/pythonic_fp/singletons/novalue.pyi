@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Final
-from pythonic_fp.singletons.novalue import NoValue
+__all__ = ['NoValue']
 
-_noValue: Final[NoValue] = NoValue()
+class NoValue:
+    __slots__ = ()
 
+    _instance: NoValue | None
 
-class Test_str:
-    def test_noValue_str(self) -> None:
-        assert str(_noValue) == 'NoValue()'
+    def __new__(cls) -> NoValue: ...
+    def __repr__(self) -> str: ...
+    def __eq__(self, other: object) -> bool: ...
