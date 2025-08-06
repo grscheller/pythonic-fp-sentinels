@@ -19,7 +19,6 @@ Four singleton classes that can represent
   - missing values (actually missing, not potentially missing)
   - sentinel values
   - failed calculations
-  - boolean-like types with "truthy" and "falsy" subtypes
 
 """
 

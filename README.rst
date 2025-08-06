@@ -9,7 +9,6 @@ Singleton classes representing
   - missing values (actually missing, not potentially missing)
   - sentinel values
   - failed calculations
-  - subclassable Boolean datatype
 
 This PyPI project is part of of the grscheller
 `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
