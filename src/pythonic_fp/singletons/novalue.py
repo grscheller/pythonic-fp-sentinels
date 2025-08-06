@@ -12,40 +12,66 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Collection of singleton classes"""
+"""Singleton class representing a missing value.
 
-from __future__ import annotations
+In untyped Python, both ``None`` and ``()`` are often used as sentinel values.
+When typing tools like MyPy are used, both are shoe-horded into Union types.
+
+``NoValue()`` is a singleton object  representing a missing value.
+
+Given variables ``x`` and ``y`` where
+
+- ``x: int | NoValue``
+- ``y: int | NoValue``
+
+Equality between them means both values exist and compare as equal.
+If one or both of theses values are missing, then what is there to compare?
+
+.. table:: ``x == y``
+
+   +-----------+-----------+--------+--------+
+   |    x∖y    | NoValue() | 42     | 57     |
+   +===========+===========+========+========+
+   | NoValue() | false     | false  | false  | 
+   +-----------+-----------+--------+--------+
+   | 42        | false     | true   | false  |
+   +-----------+-----------+--------+--------+
+   | 57        | false     | false  | true   |
+   +-----------+-----------+--------+--------+
+
+.. table:: ``x != y``
+
+   +-----------+-----------+--------+--------+
+   |    x∖y    | NoValue() | 42     | 57     |
+   +===========+===========+========+========+
+   | NoValue() | false     | false  | false  | 
+   +-----------+-----------+--------+--------+
+   | 42        | false     | false  | true   |
+   +-----------+-----------+--------+--------+
+   | 57        | false     | true   | false  |
+   +-----------+-----------+--------+--------+
+
+Of course, we can also compare directly by identity.
+
+.. code:: python
+
+    if x is NoValue():
+        print('do something')
+        ...
+
+"""
+
+from typing import ClassVar
 
 __all__ = ['NoValue']
 
 
 class NoValue:
-    """Singleton class representing a missing value.
-
-    Similar to ``None`` but
-
-    - while ``None`` represents "returned no values"
-    - ``NoValue()`` represents the absence of a value
-
-    **Usage:**
-
-    - ``import NoValue`` from ``pythonic-fp.singletons`` and then
-
-      - either use ``NoValue()`` directly
-      - or define ``_noValue: Final[NoValue] = NoValue()`` don't export it
-
-    - compare using ``is`` and ``is not``
-
-      - not ``==`` or ``!=``
-      - ``None`` means returned no values, so ``None == None`` makes sense
-      - if one or both values are missing, then what is there to compare?
-
-    """
-
     __slots__ = ()
-    _instance: NoValue | None = None
 
-    def __new__(cls) -> NoValue:
+    _instance: 'ClassVar[NoValue | None]' = None
+
+    def __new__(cls) -> 'NoValue':
         if cls._instance is None:
             cls._instance = super(NoValue, cls).__new__(cls)
         return cls._instance
@@ -57,4 +83,7 @@ class NoValue:
         return 'NoValue()'
 
     def __eq__(self, other: object) -> bool:
+        return False
+
+    def __ne__(self, other: object) -> bool:
         return False

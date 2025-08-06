@@ -12,9 +12,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Collection of singleton classes"""
+"""Singleton classes representing sentinel values.
 
-from __future__ import annotations
+Intended for library code, not to be exported/shared between modules,
+otherwise some of its intended typing guarantees may be lost.
+
+Useful substitute for ``None`` as a hidden implementation detail.
+
+- allows ``None`` to be stored in data structures
+- allows end users to choose to use ``None`` or ``()`` as "sentinel" values
+- always equals itself (unlike ``NoValue``)
+- never equals anything else
+
+**Usage:**
+
+.. code:: python
+
+    from pythonic_fp.singletons.sentinel import Sentinel
+
+    _my_sentinel: Final[Sentinel] = Sentinel('my_sentinel')
+    _another_one: Final[Sentinel] = Sentinel('foofoo rules')
+
+    if some_ref is _my_sentinel:
+        ...
+
+    if if some_ref is Sentinel('foofoo rules'):
+        ...
+
+.. note::
+
+   Can be compared using either ``is`` and ``is not`` or ``==`` and ``!=``. A Sentinel
+   value always equals itself and never equals anything else, especially other sentinel
+   values defined with different strings.
+
+.. tip::
+
+   When comparing using ``==`` or ``!=`` put the known sentinel value first to ensure
+   reference equality is used.
+
+"""
 
 __all__ = ['Sentinel']
 
@@ -23,37 +59,11 @@ from typing import final
 
 @final
 class Sentinel:
-    """Singleton classes representing sentinel values.
-
-    - intended for library code, not to be exported/shared between modules
-
-      - otherwise some of its intended typing guarantees may be lost
-
-    - useful substitute for ``None`` as a hidden sentinel value
-
-      - allows ``None`` to be stored in data structures
-      - allows end users to choose to use ``None`` or ``()`` as sentinel values
-      - always equals itself (unlike ``NoValue``)
-
-    **Usage:**
-
-    - import Sentinel and then either
-
-      - define ``_my_sentinel: Final[Sentinel] = Sentinel('my_sentinel')``
-      - or use ``Sentinel('my_sentinel')`` directly
-
-    - compare using either
-
-      - ``is`` and ``is not`` or ``==`` and ``!=``
-      - the ``Sentinel()`` value always equals itself
-      - and never equals anything else, especially other sentinel values
-
-    """
 
     __slots__ = ('_sentinel_name',)
-    _instances: dict[str, Sentinel] = {}
+    _instances: 'dict[str, Sentinel]' = {}
 
-    def __new__(cls, sentinel_name: str) -> Sentinel:
+    def __new__(cls, sentinel_name: str) -> 'Sentinel':
         if sentinel_name not in cls._instances:
             cls._instances[sentinel_name] = super(Sentinel, cls).__new__(cls)
         return cls._instances[sentinel_name]

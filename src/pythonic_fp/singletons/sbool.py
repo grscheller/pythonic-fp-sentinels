@@ -42,8 +42,6 @@ Best practices when used with these subclasses are:
 
 """
 
-from __future__ import annotations
-
 from typing import Final
 
 __all__ = ['SBool', 'Truth', 'Lie', 'TRUTH', 'LIE']
@@ -69,7 +67,7 @@ class SBool(int):
 
     """
 
-    def __new__(cls) -> SBool:
+    def __new__(cls) -> 'SBool':
         return super(SBool, cls).__new__(cls, 0)
 
     def __repr__(self) -> str:
@@ -89,9 +87,9 @@ class Truth(SBool):
 
     """
 
-    _instances: dict[str, Truth] = dict()
+    _instances: 'dict[str, Truth]' = dict()
 
-    def __new__(cls, flavor: str = 'DEFAULT_TRUTH') -> Truth:
+    def __new__(cls, flavor: str = 'DEFAULT_TRUTH') -> 'Truth':
         if flavor not in cls._instances:
             cls._instances[flavor] = super(SBool, cls).__new__(cls, 1)
         return cls._instances[flavor]
@@ -114,9 +112,9 @@ class Lie(SBool):
 
     """
 
-    _instances: dict[str, Lie] = dict()
+    _instances: 'dict[str, Lie]' = dict()
 
-    def __new__(cls, flavor: str = '') -> Lie:
+    def __new__(cls, flavor: str = '') -> 'Lie':
         if flavor not in cls._instances:
             cls._instances[flavor] = super(SBool, cls).__new__(cls, 0)
         return cls._instances[flavor]

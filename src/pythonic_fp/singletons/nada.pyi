@@ -24,7 +24,7 @@ class Nada:
     _instance: ClassVar[Nada | None]
     _hash: ClassVar[int]
 
-    SENTINEL: Final[Sentinel] = Sentinel('Nada')
+    SENTINEL: ClassVar[Final[Sentinel]] = Sentinel('Nada')
 
     def __new__(cls) -> Nada: ...
     def __iter__(self) -> Iterator[Any]: ...

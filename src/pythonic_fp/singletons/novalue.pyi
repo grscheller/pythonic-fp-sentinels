@@ -12,13 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import ClassVar
+
 __all__ = ['NoValue']
 
 class NoValue:
     __slots__ = ()
 
-    _instance: NoValue | None
+    _instance: ClassVar[NoValue | None]
 
     def __new__(cls) -> NoValue: ...
     def __repr__(self) -> str: ...
     def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
