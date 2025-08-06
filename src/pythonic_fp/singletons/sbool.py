@@ -13,16 +13,22 @@
 # limitations under the License.
 
 
-"""Class `SBool` - Subclassable Singleton Booleans
+"""Subclassable Booleans
 
-Python does not permit bool to be subclassed, but ``int`` can be
-subclassed. Under-the-hood a ``bool`` is just an ``int``. The
-SBool class inherits from ``int`` and relies on the underlying
-truthiness and falsiness of ``1`` and ``0``.
+This class's sub-types represent different "flavors" of "truth"
+where each flavor has one unique "truthy" and one unique "falsy"
+instance.
 
 The ``Truth(truth: str)`` and ``Lie(lie: str)`` subclass constructors
-produce singletons based on their input parameters. When using type
+produce singletons based on their input parameter. When using type
 hints, declare variables of these types as type ``SBool``.
+
+.. note::
+    
+    Python does not permit bool to be subclassed, but ``int`` can
+    be. Under-the-hood a ``bool`` is just an ``int``. This class
+    inherits from ``int`` and relies on the underlying truthiness
+    and falsiness of ``1`` and ``0``.
 
 Best practices when used with these subclasses are:
 
@@ -41,31 +47,38 @@ Best practices when used with these subclasses are:
   - the `not` statement converts a ``SBool`` to an actual ``bool``
 
 """
-
-from typing import Final
+from typing import Final, Hashable, TypeVar
 
 __all__ = ['SBool', 'Truth', 'Lie', 'TRUTH', 'LIE']
 
+H = TypeVar("H", bound=Hashable)
 
-class SBool(int):
-    """Subclassable Boolean hierarchy.
 
-    This class's sub-types represent different "flavors" of "truth"
-    where each flavor has one unique "truthy" and one unique "falsy"
-    instance.
+class _SBool(int):
+    """Stand-In for Boolean, which cannot be subclassed."""
 
-    .. note::
-        
-        Python does not permit bool to be subclassed, but ``int`` can
-        be. Under-the-hood a ``bool`` is just an ``int``. This class
-        inherits from ``int`` and relies on the underlying truthiness
-        and falsiness of ``1`` and ``0``.
+    def __new__(cls) -> 'SBool':
+        return super(SBool, cls).__new__(cls, 0)
 
+    def __repr__(self) -> str:
+        if self:
+            return 'SBool(1)'
+        return 'SBool(0)'
+
+
+class SBool[H](int):
+    """
     .. important::
 
-        Only use SBool as a type, never as a constructor.
+        Only use SBool as a type, never as a constructor. Use its
 
     """
+    _instances: 'dict[str, Truth]' = dict()
+
+    def __new__(cls, flavor: H) -> 'Truth':
+        if flavor not in cls._instances:
+            cls._instances[flavor] = super(SBool, cls).__new__(cls, 1)
+        return cls._instances[flavor]
 
     def __new__(cls) -> 'SBool':
         return super(SBool, cls).__new__(cls, 0)
