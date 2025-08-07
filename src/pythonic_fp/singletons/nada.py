@@ -119,7 +119,7 @@ class Nada:
         return Nada()
 
     def __getattr__(self, name: str) -> Callable[..., Any]:
-        def method(*args: tuple[Any], **kwargs: dict[str, Any]) -> Any:
+        def method(*args: Any, **kwargs: Any) -> Any:
             return Nada()
 
         return method

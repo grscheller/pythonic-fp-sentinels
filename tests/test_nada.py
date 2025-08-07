@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import reveal_type 
 from pythonic_fp.singletons.nada import Nada
 
 nada = Nada()
@@ -26,20 +27,7 @@ def gt42(x: int) -> bool|Nada:
         return False
     return Nada()
 
-class Test_Nada:
-    def test_identity(self) -> None:
-        no1 = Nada()
-        no2 = Nada()
-        no3 = nada
-        assert no1 is no1
-        assert no1 is no2
-        assert no3 is no1
-        assert no2 is nada
-        if no1 is not no2:
-            assert False
-        else:
-            assert True
-
+class TestNada:
     def test_equality_identity(self) -> None:
         no1 = Nada()
         no2 = Nada()
@@ -51,10 +39,14 @@ class Test_Nada:
         assert no1 is no2
         assert no2 is no1
         assert no1 is nada
+        if no1 is not no2:
+            assert False
+        else:
+            assert True
 
         assert not (no1 == no2)
-        assert no1 != no2
-        assert no3 != nada
+        assert not no1 != no2
+        assert not no3 != nada
         assert not (no1 <= no2)
         assert not (no1 >= no2)
         assert not (no1 < no2)
@@ -64,13 +56,13 @@ class Test_Nada:
         assert not (no2 < no1)
         assert not (no2 > no1)
         assert not (no1 == 5)
-        assert no1 != 5
+        assert not no1 != 5
         assert not (no1 <= 5)
         assert not (no1 >= 5)
         assert not (no1 < 5)
         assert not (no1 > 5)
         assert not (5 == no1)
-        assert 5 != no1
+        assert not 5 != no1
         assert not (5 <= no1)
         assert not (5 >= no1)
         assert not (5 < no1)
@@ -142,19 +134,42 @@ class Test_Nada:
         no1 = Nada()
         no2 = Nada()
         assert 2 + 3 == 5
-        assert no2 + 99 != no1
+        assert not no2 + 99 != no1
         assert no2 + 99 is no1
-        assert 86 + no1 != no2
+        assert not 86 + no1 != no2
         assert 86 + no1 is no2
-        assert no2 * 99 != no1
+        assert not no2 * 99 != no1
         assert no2 * 99 is no1
-        assert 86 * no1 != no2
+        assert not 86 * no1 != no2
         assert 86 * no1 is no2
 
-class test_arbitrary_Methods:
+class TestArbitraryMethods:
     def test_arbitrary_methods(self) -> None:
         no1 = Nada()
         no2 = Nada()
         assert no1.foo(23, 12, bar='five') is nada
         assert no2.foo() is nada
-        assert no1.foo(42).bar("Buggy", "the", "clown") == no2.baz(42) == nada
+        assert not (no1.foo(42).bar("Buggy", "the", "clown") == no2.baz(42))
+        assert not (no1.foo(42).bar("Buggy", "the", "clown") != no2.baz(42))
+        debug1 = no1.foo(42).bar("Buggy", "the", "clown")
+        debug2 = no2.baz(42)
+        debug1 == debug2  # THIS SHOULD FAIL!!!
+        reveal_type(debug1)
+        reveal_type(debug2)
+        debug1 is Nada()
+        debug2 is Nada()
+        reveal_type(debug1)
+        reveal_type(debug2)
+
+class TestBooleanContext:
+    def test_boolean(self) -> None:
+        no1 = Nada()
+        no2 = Nada()
+
+        if no1:
+            assert False
+        elif no2:
+            assert False
+        else:
+            assert True
+
