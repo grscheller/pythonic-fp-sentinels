@@ -18,9 +18,12 @@ propagate down the "happy path" of a calculation. It does this by
 - returning itself for arbitrary method calls
 - returns itself if called as a Callable with arbitrary arguments
 - interpreted as an empty container by standard Python functions
-- comparisons compare as true only for non-failed results.
+- in comparisons compare as true only for non-failed results.
 
   - thus ``a == b`` means the results of two non-failed calculations compare as equal
+  - thus ``a != b`` means the results of two non-failed calculations compare as not equal
+
+- hashable
 
 Given variables ``x`` and ``y`` where
 
@@ -32,20 +35,41 @@ Given variables ``x`` and ``y`` where
    +--------+--------+--------+--------+
    |   x∖y  | Nada() | (1, 2) | (0, 0) |
    +========+========+========+========+
-   | Nada() | false  | false  | false  | 
-   +-----------+-----+--------+--------+
-   | (1, 2) | false  | true   | false  |
+   | Nada() | Nada() | Nada() | Nada() | 
    +--------+--------+--------+--------+
-   | (0, 0) | false  | false  | true   |
+   | (1, 2) | Nada() | True   | false  |
+   +--------+--------+--------+--------+
+   | (0, 0) | Nada() | False  | true   |
    +--------+--------+--------+--------+
 
-Of course, ``Nada() is Nada()`` is still true.
+Where the ``Nada()`` singleton is "falsy".
+
+Of course, ``Nada() is Nada()`` is always true, so we can always
+identify a failed calculation.
+
+.. code:: python
+
+    def f(n: int) -> int | Nada:
+        ...
+
+    result = f(0)*f(0) + 12  # contrived calculation that can fail
+    if result >= 42:
+       final_result: int = 42
+    else:
+       final_result = result.nada_get(0)
+
+.. warning::
+
+    Non-standard (un-pythonic) comparison operators.
+
+.. warning::
+
+    Threadsafe only if instantiated before going multi-threaded.
 
 """
 
 from collections.abc import Callable, Iterator
-from typing import Any, ClassVar, Final, final
-from .sentinel import Sentinel
+from typing import Any, ClassVar, final
 
 __all__ = ['Nada']
 
@@ -54,9 +78,7 @@ __all__ = ['Nada']
 class Nada:
     __slots__ = ()
     _instance: 'ClassVar[Nada | None]' = None
-    _hash: int = 0
-
-    SENTINEL: ClassVar[Final[Sentinel]] = Sentinel('Nada')
+    _hash: ClassVar[int] = 0
 
     def __new__(cls) -> 'Nada':
         if cls._instance is None:
@@ -67,11 +89,11 @@ class Nada:
     def __iter__(self) -> Iterator[Any]:
         return iter(())
 
-    def __hash__(self) -> int:
-        return self._hash
-
     def __repr__(self) -> str:
         return 'Nada()'
+
+    def __hash__(self):
+        return self._hash
 
     def __bool__(self) -> bool:
         return False
@@ -91,41 +113,39 @@ class Nada:
     def __rmul__(self, left: Any) -> 'Nada':
         return Nada()
 
-    def __eq__(self, right: Any) -> bool:
+    def __eq__(self, right: Any) -> 'Nada':
         return False
 
-    def __ne__(self, right: Any) -> bool:
+    def __ne__(self, right: Any) -> 'Nada':
         return False
 
-    def __ge__(self, right: Any) -> bool:
+    def __ge__(self, right: Any) -> 'Nada':
         return False
 
-    def __gt__(self, right: Any) -> bool:
+    def __gt__(self, right: Any) -> 'Nada':
         return False
 
-    def __le__(self, right: Any) -> bool:
+    def __le__(self, right: Any) -> 'Nada':
         return False
 
-    def __lt__(self, right: Any) -> bool:
+    def __lt__(self, right: Any) -> 'Nada':
         return False
 
-    def __getitem__(self, index: int | slice) -> Any:
+    def __getitem__(self, index: int | slice) -> 'Nada':
         return Nada()
 
     def __setitem__(self, index: int | slice, item: Any) -> None:
         return
 
-    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+    def __call__(self, *args: Any, **kwargs: Any) -> 'Nada':
         return Nada()
 
-    def __getattr__(self, name: str) -> Callable[..., Any]:
-        def method(*args: Any, **kwargs: Any) -> Any:
+    def __getattr__(self, name: str) -> Callable[..., 'Nada']:
+        def method(*args: Any, **kwargs: Any) -> 'Nada':
             return Nada()
 
         return method
 
-    def nada_get[T](self, alt: T | Sentinel = SENTINEL) -> Any:
-        """Get an alternate value, defaults to ``Nada()``."""
-        if alt == Sentinel('Nada'):
-            return Nada()
+    def nada_get[T](self, alt: T) -> T:
+        """Get an alternate value, must only be called on ``Nada()`` itself."""
         return alt

@@ -89,7 +89,7 @@ class TestNada:
         no2 = Nada()
         assert no1.nada_get(42) == 42
         assert no2.nada_get(21) == 21
-        got1 = no1.nada_get()
+        got1 = no1.nada_get(Nada())
         got2 = no1.nada_get('forty-two')
         assert got1 is Nada()
         assert got2 == 'forty-two'
@@ -123,10 +123,10 @@ class TestNada:
         got = no1[42]
         assert got is nada
         assert no1[2:7:1] is nada
-        no2[1:40:2] = 1,2,3,4,5,6,7
+        no2[11:20:2] = 1,2,3,4,5
         assert no2 is nada
-        got = no1.nada_get()
-        assert got is nada
+        no2[11:20:2] = 1,2,3,4,5,7
+        assert no2 is nada
         got = no1.nada_get(42)
         assert got == 42
 
