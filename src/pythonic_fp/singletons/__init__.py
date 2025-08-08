@@ -12,13 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Singletons.
+"""Singleton classes
 
-Four singleton classes that can represent
-
-  - missing values (actually missing, not potentially missing)
-  - sentinel values
-  - failed calculations
++------------------------------------+-----------------------------------------------------------+
+| Singleton                          | Represents                                                |
++====================================+===========================================================+
+| ``NoValue()``                      | missing value (actually missing, not potentially missing) |
++------------------------------------+-----------------------------------------------------------+
+| ``Sentinel[H](hashable_value: H)`` | distinct sentinel values indexed by a hashable type       |
++------------------------------------+-----------------------------------------------------------+
 
 """
 

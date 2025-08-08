@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import final, Hashable, TypeVar
+
 __all__ = ['Sentinel']
 
-from typing import final
+H = TypeVar("H", bound=Hashable)
 
 @final
-class Sentinel:
-    __slots__ = ('_sentinel_name',)
+class Sentinel[H]:
 
-    _instances: dict[str, Sentinel]
+    __slots__ = ('_flavor',)
 
-    def __init__(self, sentinel_name: str) -> None: ...
-    def __new__(cls, sentinel_name: str) -> Sentinel: ...
+    _instances: dict[H, Sentinel[H]]
+
+    def __new__(cls, flavor: H) -> Sentinel[H]: ...
+    def __init__(self, flavor: str) -> None: ...
     def __repr__(self) -> str: ...

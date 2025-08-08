@@ -17,14 +17,15 @@
 In untyped Python, both ``None`` and ``()`` are often used as sentinel values.
 When typing tools like MyPy are used, both are shoe-horded into Union types.
 
-``NoValue()`` is a singleton object  representing a missing value.
+``NoValue()`` is a singleton object representing a missing value.
 
-Given variables ``x`` and ``y`` where
+Given variables
 
-- ``x: int | NoValue``
-- ``y: int | NoValue``
+.. code:: python
+    x: int | NoValue
+    y: int | NoValue
 
-Equality between them means both values exist and compare as equal.
+Equality between ``x`` and ``y`` means both values exist and compare as equal.
 If one or both of theses values are missing, then what is there to compare?
 
 .. table:: ``x == y``
@@ -32,7 +33,7 @@ If one or both of theses values are missing, then what is there to compare?
    +-----------+-----------+--------+--------+
    |    x∖y    | NoValue() | 42     | 57     |
    +===========+===========+========+========+
-   | NoValue() | false     | false  | false  | 
+   | NoValue() | false     | false  | false  |
    +-----------+-----------+--------+--------+
    | 42        | false     | true   | false  |
    +-----------+-----------+--------+--------+
@@ -44,7 +45,7 @@ If one or both of theses values are missing, then what is there to compare?
    +-----------+-----------+--------+--------+
    |    x∖y    | NoValue() | 42     | 57     |
    +===========+===========+========+========+
-   | NoValue() | false     | false  | false  | 
+   | NoValue() | false     | false  | false  |
    +-----------+-----------+--------+--------+
    | 42        | false     | false  | true   |
    +-----------+-----------+--------+--------+
@@ -56,8 +57,16 @@ Of course, we can also compare directly by identity.
 .. code:: python
 
     if x is NoValue():
-        print('do something')
+        print('nobody home')
         ...
+
+.. warning::
+
+    Threadsafe only if instantiated before going multi-threaded.
+
+.. warning::
+
+    Non-standard (unpythonic?) ``==`` and ``!=`` comparison operators.
 
 """
 

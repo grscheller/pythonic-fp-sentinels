@@ -12,64 +12,76 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Singleton classes representing sentinel values.
+"""Sentinel values of different flavors.
 
-Intended for library code, not to be exported/shared between modules,
-otherwise some of its intended typing guarantees may be lost.
-
-Useful substitute for ``None`` as a hidden implementation detail.
-
-- allows ``None`` to be stored in data structures
-- allows end users to choose to use ``None`` or ``()`` as "sentinel" values
-- always equals itself (unlike ``NoValue``)
-- never equals anything else
-
-**Usage:**
+Can be used with functions,
 
 .. code:: python
 
     from pythonic_fp.singletons.sentinel import Sentinel
 
-    _my_sentinel: Final[Sentinel] = Sentinel('my_sentinel')
-    _another_one: Final[Sentinel] = Sentinel('foofoo rules')
+    _my_sentinel: Final[Sentinel[str]] = Sentinel('my_sentinel')
+    ultimate_one: Final[Sentinel[int]] = Sentinel(42)
+    one_sentinel: Final[Sentinel[int]] = Sentinel(1)
 
-    if some_ref is _my_sentinel:
+    def figure_something_out(n: int, x: float) -> Sentinel[int]
         ...
 
-    if if some_ref is Sentinel('foofoo rules'):
+    def do_something(sentinel: Sentinel[int]):
         ...
+
+    do_something(figure_something_out(0, 1.5))
+
+Or with classes,
+
+.. code:: python
+
+    class my_class:
+        def __init__(self, value: float | Sentinel[str]) -> None:
+            if value is _my_sentinel:
+                self.value = 42.0
+            else:
+                self.value = value
+
+        def get_value(self) -> float:
+            return self.value
 
 .. note::
 
-   Can be compared using either ``is`` and ``is not`` or ``==`` and ``!=``. A Sentinel
-   value always equals itself and never equals anything else, especially other sentinel
-   values defined with different strings.
+   Can be compared using ``is``, ``is not``, ``==``, ``!=``. A Sentinel
+   value always equals itself and never equals anything else, especially
+   other sentinel values defined with different flavors.
 
 .. tip::
 
-   When comparing using ``==`` or ``!=`` put the known sentinel value first to ensure
-   reference equality is used.
+   Useful substitute for ``None`` for "optional" values. Don't export to
+   use as a hidden implementation detail. Does not clash with end user
+   code which may use either ``None`` or ``()`` as "sentinel" values.
+
+   To ensure that reference equality is used for either ``==`` or ``!=``,
+   put the known sentinel value first.
 
 """
+from typing import final, Hashable, TypeVar
 
 __all__ = ['Sentinel']
 
-from typing import final
-
+H = TypeVar("H", bound=Hashable)
 
 @final
-class Sentinel:
+class Sentinel[H]:
 
-    __slots__ = ('_sentinel_name',)
-    _instances: 'dict[str, Sentinel]' = {}
+    __slots__ = ('_flavor',)
 
-    def __new__(cls, sentinel_name: str) -> 'Sentinel':
-        if sentinel_name not in cls._instances:
-            cls._instances[sentinel_name] = super(Sentinel, cls).__new__(cls)
-        return cls._instances[sentinel_name]
+    _instances: 'dict[H, Sentinel[H]]' = {}
 
-    def __init__(self, sentinel_name: str) -> None:
-        self._sentinel_name = sentinel_name
+    def __new__(cls, flavor: H) -> 'Sentinel[H]':
+        if flavor not in cls._instances:
+            cls._instances[flavor] = super(Sentinel[H], cls).__new__(cls)
+        return cls._instances[flavor]
+
+    def __init__(self, flavor: str) -> None:
+        self._flavor = flavor
 
     def __repr__(self) -> str:
-        return "Sentinel('" + self._sentinel_name + "')"
+        return "Sentinel('" + self._flavor + "')"
