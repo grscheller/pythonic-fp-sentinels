@@ -2,15 +2,17 @@ Pythonic FP - Singletons
 ========================
 
 PyPI project
-`pythonic-fp.fptools <https://pypi.org/project/pythonic-fp.singletons>`_.
+`pythonic-fp-singletond
+<https://pypi.org/project/pythonic-fp.singletons>`_.
 
 Singleton classes representing
 
-  - missing values, actually missing, not potentially missing
-  - sentinel values of different flavors
+- missing values, actually missing, not potentially missing
+- sentinel values of different flavors
 
 This PyPI project is part of of the grscheller
-`pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
+`pythonic-fp namespace projects
+<https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
 
 Documentation
 -------------

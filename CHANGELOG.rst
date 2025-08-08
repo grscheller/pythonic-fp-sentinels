@@ -20,7 +20,16 @@ Releases and Important Milestones
 2.0.0 - TBA
 ~~~~~~~~~~~
 
-Moved pythonic_fp.singletons.sbool -> pythonic_fp.booleans.{ibool,sbool}.
+- moved module pythonic_fp.singletons.sbool -> pythonic_fp.booleans.{ibool,sbool}.
+- removed pythonic_fp.nada module
+
+  - learned a lot about Python getting it to work
+  - decided it use case was not worth the effort to maintain it
+
+- extended class Singleton
+
+  - from declaring multiple singletons with strings
+  - to declaring multiple "flavors" of any hashable type
 
 
 1.0.0 - 2025-08-02
