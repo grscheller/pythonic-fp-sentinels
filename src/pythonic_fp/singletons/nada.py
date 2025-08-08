@@ -68,7 +68,7 @@ identify a failed calculation.
 
 """
 
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterable, Iterator
 from typing import Any, ClassVar, final
 
 __all__ = ['Nada']
@@ -92,7 +92,7 @@ class Nada:
     def __repr__(self) -> str:
         return 'Nada()'
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return self._hash
 
     def __bool__(self) -> bool:
@@ -114,29 +114,61 @@ class Nada:
         return Nada()
 
     def __eq__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
 
     def __ne__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
 
     def __ge__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
 
     def __gt__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
 
     def __le__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
 
     def __lt__(self, right: Any) -> 'Nada':
-        return False
+        return Nada()
+
+    def __delitem__(self, index: int | slice) -> 'Nada':
+        return Nada()
 
     def __getitem__(self, index: int | slice) -> 'Nada':
         return Nada()
 
-    def __setitem__(self, index: int | slice, item: Any) -> None:
-        return
+    # have not considered negative indexed slices yet
+    # have not considered empty iterables yet either
+    def __setitem__(self, index: int | slice, items: Any) -> None:
+        if items is Nada():
+            return Nada()
 
+        if isinstance(index, slice):
+            if isinstance(items, Iterable):
+                start = 0 if index.start is None else index.start
+                step = 1 if index.step is None else index.step
+                stop = index.stop
+                if stop is None:
+                    return Nada()
+                else:
+                    size_slice = (stop - start + 1) // step
+
+                if hasattr(items, '__len__'):
+                    len_iter = len(items)
+                else:
+                    len_iter = 0
+                    for _ in items:
+                        len_iter += 1
+
+                if size_slice == len_iter:
+                    return Nada()
+                msg = f'attempt to assign sequence of size {len_iter} to extended slice of size {size_slice}'
+                raise ValueError(msg)
+            else:
+                msg = 'must assign iterable to extended slice'
+                raise TypeError(msg)
+        return Nada()
+            
     def __call__(self, *args: Any, **kwargs: Any) -> 'Nada':
         return Nada()
 

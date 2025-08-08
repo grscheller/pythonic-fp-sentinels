@@ -118,15 +118,44 @@ class TestNada:
     def test_get_set(self) -> None:
         no1 = Nada()
         no2 = Nada()
+
         no2[5] = 101
         assert no2 is nada
-        got = no1[42]
+        got: int | Nada = no1[42]
         assert got is nada
         assert no1[2:7:1] is nada
+
         no2[11:20:2] = 1,2,3,4,5
         assert no2 is nada
-        no2[11:20:2] = 1,2,3,4,5,7
-        assert no2 is nada
+
+        try:
+            no2[11:20:2] = 1,2,3,4,5
+        except ValueError:
+            assert False
+        else:
+            assert True
+        finally:
+            assert no2 is nada
+
+        try:
+            no2[11:20:2] = 1,2,3,4,5,6
+        except ValueError:
+            assert True
+        else:
+            assert False
+        finally:
+            assert no2 is Nada()
+
+        no2[11:20] = 1,2,3,4,5,6,7,8,9  # Failed test
+        try:
+            no2[11:20] = 1,2,3,4,5,6,7,8,9
+        except ValueError:
+            assert False
+        else:
+            assert True
+        finally:
+            assert no2 is Nada()
+
         got = no1.nada_get(42)
         assert got == 42
 
