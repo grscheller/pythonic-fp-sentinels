@@ -6,9 +6,8 @@ PyPI project
 
 Singleton classes representing
 
-  - missing values (actually missing, not potentially missing)
-  - sentinel values
-  - failed calculations
+  - missing values, actually missing, not potentially missing
+  - sentinel values of different flavors
 
 This PyPI project is part of of the grscheller
 `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
