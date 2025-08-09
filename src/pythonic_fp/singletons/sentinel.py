@@ -14,13 +14,14 @@
 
 """Sentinel values of different flavors.
 
-Can be used with functions,
+Can be used with functions or classes,
 
 .. code:: python
 
+    from typing import Final
     from pythonic_fp.singletons.sentinel import Sentinel
 
-    _my_sentinel: Final[Sentinel[str]] = Sentinel('my_sentinel')
+    my_sentinel: Final[Sentinel[str]] = Sentinel('my_sentinel')
     ultimate_one: Final[Sentinel[int]] = Sentinel(42)
     one_sentinel: Final[Sentinel[int]] = Sentinel(1)
 
@@ -32,13 +33,9 @@ Can be used with functions,
 
     do_something(figure_something_out(0, 1.5))
 
-Or with classes,
-
-.. code:: python
-
     class my_class:
         def __init__(self, value: float | Sentinel[str]) -> None:
-            if value is _my_sentinel:
+            if value is my_sentinel:
                 self.value = 42.0
             else:
                 self.value = value
@@ -46,11 +43,38 @@ Or with classes,
         def get_value(self) -> float:
             return self.value
 
+Can be used as a private implementation detail for a class,
+
+.. code:: python
+
+    __all__ = ['my_class']
+
+    from typing import ClassVar, Final, final
+    from pythonic_fp.singletons.sentinel import Sentinel
+
+    @final
+    class my_class():
+
+        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_my_class_secret_str')
+
+        def __init__(self, number: int | Sentinel[str] = self._sentinel) -> None:
+            if number is _sentinel:
+                self.number = 42
+            else:
+                self.number = number
+
+        def get_number(self) -> int:
+            return self.number
+
 .. note::
 
-   Can be compared using ``is``, ``is not``, ``==``, ``!=``. A Sentinel
-   value always equals itself and never equals anything else, especially
-   other sentinel values defined with different flavors.
+   Threadsafe.
+
+.. note::
+
+   Can be compared using ``==`` and ``!=``. A Sentinel
+   value always equals itself and never equals anything else,
+   especially other sentinel values defined with different flavors.
 
 .. tip::
 
@@ -62,6 +86,7 @@ Or with classes,
    put the known sentinel value first.
 
 """
+import threading
 from typing import final, Hashable, TypeVar
 
 __all__ = ['Sentinel']
@@ -73,15 +98,19 @@ class Sentinel[H]:
 
     __slots__ = ('_flavor',)
 
-    _instances: 'dict[H, Sentinel[H]]' = {}
+    _flavors: 'dict[H, Sentinel[H]]' = {}
+    _lock: threading.Lock = threading.Lock()
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
-        if flavor not in cls._instances:
-            cls._instances[flavor] = super(Sentinel[H], cls).__new__(cls)
-        return cls._instances[flavor]
+        if flavor not in cls._flavors:
+            with cls._lock:
+                if flavor not in cls._flavors:
+                    cls._flavors[flavor] = super(Sentinel, cls).__new__(cls)
+        return cls._flavors[flavor]
 
-    def __init__(self, flavor: str) -> None:
-        self._flavor = flavor
+    def __init__(self, flavor: H) -> None:
+        if not hasattr(self, '_flavor'):
+            self._flavor = flavor
 
     def __repr__(self) -> str:
-        return "Sentinel('" + self._flavor + "')"
+        return "Sentinel('" + repr(self._flavor) + "')"

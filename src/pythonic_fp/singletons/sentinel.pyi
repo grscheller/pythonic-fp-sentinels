@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import threading
 from typing import final, Hashable, TypeVar
 
 __all__ = ['Sentinel']
@@ -23,8 +24,9 @@ class Sentinel[H]:
 
     __slots__ = ('_flavor',)
 
-    _instances: dict[H, Sentinel[H]]
+    _flavors: dict[H, Sentinel[H]] = {}
+    _lock: threading.Lock
 
     def __new__(cls, flavor: H) -> Sentinel[H]: ...
-    def __init__(self, flavor: str) -> None: ...
+    def __init__(self, flavor: H) -> None: ...
     def __repr__(self) -> str: ...

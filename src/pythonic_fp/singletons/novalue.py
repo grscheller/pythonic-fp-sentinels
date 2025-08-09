@@ -22,6 +22,7 @@ When typing tools like MyPy are used, both are shoe-horded into Union types.
 Given variables
 
 .. code:: python
+
     x: int | NoValue
     y: int | NoValue
 
