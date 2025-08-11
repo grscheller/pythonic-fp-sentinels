@@ -2,10 +2,13 @@
 name = "pythonic-fp-singletons"
 version = "2.0.0"
 readme = "README.rst"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 license = { file = "LICENSE" }
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
-keywords = ["sentinel", "singleton"]
+keywords = [
+  "sentinel",
+  "singleton",
+]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Pytest",
@@ -67,6 +70,7 @@ docstring-quotes = "double"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["C901"]
+"**/*.py" = ["E741"]
 
 [tool.ruff.format]
 quote-style = "single"
