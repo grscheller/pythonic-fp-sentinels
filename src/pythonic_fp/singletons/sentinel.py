@@ -87,7 +87,7 @@ Can be used as a private implementation detail for a class,
 
 """
 import threading
-from typing import final, Hashable, TypeVar
+from typing import ClassVar, final, Hashable, TypeVar
 
 __all__ = ['Sentinel']
 
@@ -99,7 +99,7 @@ class Sentinel[H]:
     __slots__ = ('_flavor',)
 
     _flavors: 'dict[H, Sentinel[H]]' = {}
-    _lock: threading.Lock = threading.Lock()
+    _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
         if flavor not in cls._flavors:
