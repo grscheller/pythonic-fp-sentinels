@@ -15,9 +15,9 @@
 from typing import Final
 from pythonic_fp.singletons.novalue import NoValue
 
-_noValue: Final[NoValue] = NoValue()
+noValue: Final[NoValue] = NoValue()
 
 
-class Test_str:
+class TestStr:
     def test_noValue_str(self) -> None:
-        assert str(_noValue) == 'NoValue()'
+        assert str(noValue) == 'NoValue()'

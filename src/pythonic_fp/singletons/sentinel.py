@@ -12,59 +12,50 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Sentinel values of different flavors.
+"""Sentinel values of different flavors. Can be used
+with functions or classes.
 
-Can be used with functions or classes,
+**Some Use Casses**
+
+Could be used like an Enum.
 
 .. code:: python
 
-    from typing import Final
     from pythonic_fp.singletons.sentinel import Sentinel
 
-    my_sentinel: Final[Sentinel[str]] = Sentinel('my_sentinel')
-    ultimate_one: Final[Sentinel[int]] = Sentinel(42)
-    one_sentinel: Final[Sentinel[int]] = Sentinel(1)
+    def calculate_something(n: int, x: float) -> tuple[Sentinel[int], float]:
+        if n <= 0:
+            return (Sentinel(0), x)
+        return (Sentinel(n), x/n)
 
-    def figure_something_out(n: int, x: float) -> Sentinel[int]
-        ...
+    def process_result(pair: tuple[Sentinel[int], float]) -> float:
+        if pair[0] is Sentinel(0):
+            return 0.0
+        return pair[1]
 
-    def do_something(sentinel: Sentinel[int]):
-        ...
+    result = process_result(calculate_something(213, 15234.541))
 
-    do_something(figure_something_out(0, 1.5))
+Can be also be used as a private implementation detail for a class.
+Here is an example of an class that can take an "optional" value
+yet still be able to store ``None`` as a value.
+
+.. code:: python
+
+    from typing import ClassVar, Final
+    from pythonic_fp.singletons.sentinel import Sentinel
 
     class my_class:
-        def __init__(self, value: float | Sentinel[str]) -> None:
+
+        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_my_class_secret_str')
+
+        def __init__(self, value: float | None | Sentinel[str]) -> None:
             if value is my_sentinel:
                 self.value = 42.0
             else:
                 self.value = value
 
-        def get_value(self) -> float:
+        def get_value(self) -> float | None:
             return self.value
-
-Can be used as a private implementation detail for a class,
-
-.. code:: python
-
-    __all__ = ['my_class']
-
-    from typing import ClassVar, Final, final
-    from pythonic_fp.singletons.sentinel import Sentinel
-
-    @final
-    class my_class():
-
-        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_my_class_secret_str')
-
-        def __init__(self, number: int | Sentinel[str] = self._sentinel) -> None:
-            if number is _sentinel:
-                self.number = 42
-            else:
-                self.number = number
-
-        def get_number(self) -> int:
-            return self.number
 
 .. note::
 
@@ -74,16 +65,18 @@ Can be used as a private implementation detail for a class,
 
    Can be compared using ``==`` and ``!=``. A Sentinel
    value always equals itself and never equals anything else,
-   especially other sentinel values defined with different flavors.
+   especially other sentinel values.
+
+   To ensure that reference equality is used put the known
+   sentinel value first.
 
 .. tip::
 
-   Useful substitute for ``None`` for "optional" values. Don't export to
-   use as a hidden implementation detail. Does not clash with end user
-   code which may use either ``None`` or ``()`` as "sentinel" values.
+   - don't export when using as a hidden implementation detail.
+   - does not clash with end user code
 
-   To ensure that reference equality is used for either ``==`` or ``!=``,
-   put the known sentinel value first.
+     - which may use ``None`` or ``()`` as their "sentinel" values.
+
 
 """
 import threading
