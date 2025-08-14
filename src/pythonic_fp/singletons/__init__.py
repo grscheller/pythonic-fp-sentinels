@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Singleton classes
+"""Sentinel classes
 
-+------------------------------------+-----------------------------------------------------------+
-| Singleton                          | Represents                                                |
-+====================================+===========================================================+
-| ``NoValue()``                      | missing value (actually missing, not potentially missing) |
-+------------------------------------+-----------------------------------------------------------+
-| ``Sentinel[H](hashable_value: H)`` | distinct sentinel values indexed by a hashable type       |
-+------------------------------------+-----------------------------------------------------------+
++------------------------------------+-------------------------------------------------+
+| Sentinel                           | Represents                                      |
++====================================+=================================================+
+| ``NoValue()``                      | actually missing value, not potentially missing |
++------------------------------------+-------------------------------------------------+
+| ``Sentinel[H](hashable_value: H)`` | distinct sentinels indexed by a hashable values |
++------------------------------------+-------------------------------------------------+
 
 """
 
