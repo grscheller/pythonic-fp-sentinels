@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Sentinel classes
+"""Sentinel classes - implemented as singletons
 
-+------------------------------------+-------------------------------------------------+
-| Sentinel                           | Represents                                      |
-+====================================+=================================================+
-| ``NoValue()``                      | actually missing value, not potentially missing |
-+------------------------------------+-------------------------------------------------+
-| ``Sentinel[H](hashable_value: H)`` | distinct sentinels indexed by a hashable values |
-+------------------------------------+-------------------------------------------------+
++------------------------+-------------------------------------------------+
+| Sentinel               | Represents                                      |
++========================+=================================================+
+| ``NoValue()``          | actually missing value, not potentially missing |
++------------------------+-------------------------------------------------+
+| ``Sentinel(hashable)`` | distinct sentinels indexed by a hashable values |
++------------------------+-------------------------------------------------+
 
 """
 

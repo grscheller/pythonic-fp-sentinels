@@ -1,9 +1,9 @@
-Pythonic FP - Singletons
+Pythonic FP - Sentinels
 ========================
 
 PyPI project
-`pythonic-fp-singletond
-<https://pypi.org/project/pythonic-fp.singletons>`_.
+`pythonic-fp-sentinels
+<https://pypi.org/project/pythonic-fp.sentinels>`_.
 
 Singleton classes representing
 
@@ -19,7 +19,7 @@ Documentation
 
 Documentation for this project is hosted on
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp/singletons/development/build/html>`_.
+<https://grscheller.github.io/pythonic-fp/sentinels/development/build/html>`_.
 
 Copyright and License
 ---------------------

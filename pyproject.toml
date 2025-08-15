@@ -1,5 +1,5 @@
 [project]
-name = "pythonic-fp-singletons"
+name = "pythonic-fp-sentinels"
 version = "2.0.0"
 readme = "README.rst"
 requires-python = ">=3.13"
@@ -22,10 +22,10 @@ dependencies = []
 dynamic = ["description"]
 
 [project.urls]
-Changelog = "https://github.com/grscheller/pythonic-fp-singletons/blob/main/CHANGELOG.rst"
-Documentation = "https://grscheller.github.io/pythonic-fp/singletons/development/build/html/releases.html"
+Changelog = "https://github.com/grscheller/pythonic-fp-sentinels/blob/main/CHANGELOG.rst"
+Documentation = "https://grscheller.github.io/pythonic-fp/sentinels/development/build/html/releases.html"
 Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.md"
-Source = "https://github.com/grscheller/pythonic-fp-singletons"
+Source = "https://github.com/grscheller/pythonic-fp-sentinels"
 
 [project.optional-dependencies]
 test = [
@@ -38,7 +38,7 @@ requires = ["flit_core>=3.12,<4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.module]
-name = "pythonic_fp.singletons"
+name = "pythonic_fp.sentinels"
 
 [tool.mypy]
 enable_incomplete_feature = "NewGenericSyntax"

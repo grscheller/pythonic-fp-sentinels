@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from typing import Final
-from pythonic_fp.singletons.novalue import NoValue
+from pythonic_fp.sentinels.novalue import NoValue
 
 noValue: Final[NoValue] = NoValue()
 

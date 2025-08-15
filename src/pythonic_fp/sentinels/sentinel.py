@@ -21,7 +21,7 @@ Could be used like an Enum.
 
 .. code:: python
 
-    from pythonic_fp.singletons.sentinel import Sentinel
+    from pythonic_fp.sentinels.sentinel import Sentinel
 
     def calculate_something(n: int, x: float) -> tuple[Sentinel[int], float]:
         if n <= 0:
@@ -42,8 +42,6 @@ yet still be able to store ``None`` as a value.
 .. code:: python
 
     from typing import ClassVar, Final
-    from pythonic_fp.singletons.sentinel import Sentinel
-
     class my_class:
 
         _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_my_class_secret_str')

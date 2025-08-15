@@ -1,12 +1,12 @@
 CHANGELOG
 =========
 
-PyPI pythonic-fp.singletons project.
+PyPI pythonic-fp-sentinels project.
 
 Semantic Versioning
 -------------------
 
-Strict 3 digit semantic versioning adopted 2025-05-19.
+Strict 3 digit semantic versioning
 
 - **MAJOR** version incremented for incompatible API changes
 - **MINOR** version incremented for backward compatible added functionality
@@ -17,14 +17,27 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-2.0.0 - TBA
-~~~~~~~~~~~
+2.0.0 - 2025-08-14
+~~~~~~~~~~~~~~~~~~
 
-- moved module pythonic_fp.singletons.sbool -> pythonic_fp.booleans.{ibool,sbool}.
+GitHub repo renamed pythonic-fp-sentinels. The singletons package effort will be
+continuated as the sentinel package. PyPI pythonic-fp-singletons project deprecated
+in favor of pythonic-fp-sentinels project.
+
+
+1.0.0+ - 2025-08-14
+~~~~~~~~~~~~~~~~~~~
+
+Last development version as pythonic-fp-singletons.
+
+- moved module pythonic_fp.singletons.sbool to pythonic_fp.booleans
+
+  - module ``singletons.sbool`` refactored into modules ``subtypable_bool`` and ``flavored_bool``
+
 - removed pythonic_fp.nada module
 
   - learned a lot about Python getting it to work
-  - decided it use case was not worth the effort to maintain it
+  - decided its use case was not worth the effort to maintain it
 
 - extended class Singleton
 
