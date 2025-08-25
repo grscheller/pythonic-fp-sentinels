@@ -41,16 +41,30 @@ yet still be able to store ``None`` as a value.
 
 .. code:: python
 
-    from typing import ClassVar, Final
-    class my_class:
+    from typing import cast, ClassVar, Final, overload
+    from pythonic_fp.sentinels.sentinel import Sentinel
 
-        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_my_class_secret_str')
 
-        def __init__(self, value: float | None | Sentinel[str]) -> None:
-            if value is my_sentinel:
-                self.value = 42.0
+    class MyClass:
+        _secret: Final[ClassVar[str]] = '_secret_str'
+        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel(_secret)
+
+        @overload
+        def __init__(self) -> None: ...
+        @overload
+        def __init__(self, value: float) -> None: ...
+        @overload
+        def __init__(self, value: None) -> None: ...
+        @overload
+        def __init__(self, value: float | None) -> None: ...
+
+        def __init__(
+            self, value: float | None | Sentinel[str] = Sentinel('_secret_str')
+        ) -> None:
+            if value is self._sentinel:
+                self.value: float | None = 42.0
             else:
-                self.value = value
+                self.value = cast(float | None, value)
 
         def get_value(self) -> float | None:
             return self.value

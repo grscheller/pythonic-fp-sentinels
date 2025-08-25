@@ -28,4 +28,4 @@ class TestWithFunctions:
 
     def test_int_flavored_sentinels(self) -> None:
         assert process_result(calculate_something(-42, 15234.541)) == 0.0
-        assert process_result(calculate_something(200, 40000.0)) == 200.0
+        assert process_result(calculate_something(200, 80000.0)) == 400.0

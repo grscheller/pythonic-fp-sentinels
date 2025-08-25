@@ -17,11 +17,16 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-2.0.0 - 2025-08-14
-~~~~~~~~~~~~~~~~~~
+2.0.0 - TBD
+~~~~~~~~~~~
+
+First PyPI release as pythonic-fp-sentinels.
+
+New Repo - 2025-08-14
+~~~~~~~~~~~~~~~~~~~~~
 
 GitHub repo renamed pythonic-fp-sentinels. The singletons package effort will be
-continuated as the sentinel package. PyPI pythonic-fp-singletons project deprecated
+continued as the sentinel package. PyPI pythonic-fp-singletons project deprecated
 in favor of pythonic-fp-sentinels project.
 
 
