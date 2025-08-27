@@ -54,7 +54,7 @@ class Sentinel[H]:
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
         """
-        "param flavor: Hashable value to determine the flavor" of the ``Sentinel``.
+        :param flavor: Hashable value to determine the "flavor" of the ``Sentinel``.
         :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
         """
         if flavor not in cls._flavors:

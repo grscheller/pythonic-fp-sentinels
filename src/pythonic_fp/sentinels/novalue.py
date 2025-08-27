@@ -32,6 +32,8 @@ Given variables
 Equality between ``x`` and ``y`` means both values exist and compare as equal.
 If one or both of theses values are missing, then what is there to compare?
 
+====
+
 .. table:: ``x == y``
 
    +-----------+-----------+--------+--------+
@@ -44,6 +46,8 @@ If one or both of theses values are missing, then what is there to compare?
    | 57        | false     | false  | true   |
    +-----------+-----------+--------+--------+
 
+====
+
 .. table:: ``x != y``
 
    +-----------+-----------+--------+--------+
@@ -55,6 +59,8 @@ If one or both of theses values are missing, then what is there to compare?
    +-----------+-----------+--------+--------+
    | 57        | false     | true   | false  |
    +-----------+-----------+--------+--------+
+
+====
 
 Of course, we can also compare directly by identity.
 
