@@ -15,69 +15,15 @@
 """Sentinel values of different (hashable) flavors. Can be used
 with functions or classes.
 
-**Some Use Cases**
-
-Could be used like an Enum.
-
-.. code:: python
-
-    from pythonic_fp.sentinels.sentinel import Sentinel
-
-    def calculate_something(n: int, x: float) -> tuple[Sentinel[int], float]:
-        if n <= 0:
-            return (Sentinel(0), x)
-        return (Sentinel(n), x/n)
-
-    def process_result(pair: tuple[Sentinel[int], float]) -> float:
-        if pair[0] is Sentinel(0):
-            return 0.0
-        return pair[1]
-
-    result = process_result(calculate_something(213, 15234.541))
-
-Can be also be used as a private implementation detail for a class.
-Here is an example of an class that can take an "optional" value
-yet still be able to store ``None`` as a value.
-
-.. code:: python
-
-    from typing import cast, ClassVar, Final, overload
-    from pythonic_fp.sentinels.sentinel import Sentinel
-
-
-    class MyClass:
-        _secret: Final[ClassVar[str]] = '_secret_str'
-        _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel(_secret)
-
-        @overload
-        def __init__(self) -> None: ...
-        @overload
-        def __init__(self, value: float) -> None: ...
-        @overload
-        def __init__(self, value: None) -> None: ...
-        @overload
-        def __init__(self, value: float | None) -> None: ...
-
-        def __init__(
-            self, value: float | None | Sentinel[str] = Sentinel('_secret_str')
-        ) -> None:
-            if value is self._sentinel:
-                self.value: float | None = 42.0
-            else:
-                self.value = cast(float | None, value)
-
-        def get_value(self) -> float | None:
-            return self.value
-
 .. note::
 
    Threadsafe.
 
 .. note::
 
-   Can be compared using ``==`` and ``!=``. A Sentinel
+   Can be compared using ``==`` and ``!=``. A flavored sentinel
    value always equals itself and never equals anything else,
-   especially other sentinel values.
+   especially other flavored sentinel values.
 
    To ensure that reference equality is used put the known
    sentinel value first.

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.sentinels.sentinel import Sentinel
+from pythonic_fp.sentinels.flavored import Sentinel
 
 def calculate_something(n: int, x: float) -> tuple[Sentinel[int], float]:
     if n <= 0:

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from typing import cast, ClassVar, Final, overload
-from pythonic_fp.sentinels.sentinel import Sentinel
+from pythonic_fp.sentinels.flavored import Sentinel
 
 
 class MyClass:
