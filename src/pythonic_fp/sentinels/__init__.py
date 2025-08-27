@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Sentinel classes - implemented as singletons
+"""
+Sentinels
+=========
+
+Sentinel classes implemented as singletons.
 
 +--------------+------------------------+-------------------------------------------------+
 | Module       | Sentinel               | Represents                                      |

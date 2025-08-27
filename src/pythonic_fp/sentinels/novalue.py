@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Singleton class representing a missing value.
+"""
+Missing Value Sentinel
+======================
+
+Singleton class representing a missing value.
 
 In untyped Python, both ``None`` and ``()`` are often used by end users
 and libraries as sentinel values. I prefer to think of them as
@@ -32,8 +36,6 @@ Given variables
 Equality between ``x`` and ``y`` means both values exist and compare as equal.
 If one or both of theses values are missing, then what is there to compare?
 
-====
-
 .. table:: ``x == y``
 
    +-----------+-----------+--------+--------+
@@ -46,7 +48,7 @@ If one or both of theses values are missing, then what is there to compare?
    | 57        | false     | false  | true   |
    +-----------+-----------+--------+--------+
 
-====
+Same for not equal.
 
 .. table:: ``x != y``
 
@@ -60,42 +62,39 @@ If one or both of theses values are missing, then what is there to compare?
    | 57        | false     | true   | false  |
    +-----------+-----------+--------+--------+
 
-====
+Of course, we can also compare directly by identity with
+``is`` and ``is nor``.
 
-Of course, we can also compare directly by identity.
+.. note::
 
-.. code:: python
-
-    if x is NoValue():
-        print('nobody home')
-        ...
-
-.. warning::
-
-    Threadsafe only if instantiated before going multi-threaded.
+    Threadsafe.
 
 .. warning::
 
     Non-standard (unpythonic?) ``==`` and ``!=`` comparison operators.
 
 """
-
-from typing import ClassVar
+import threading
+from typing import ClassVar, final
 
 __all__ = ['NoValue']
 
 
+@final
 class NoValue:
     __slots__ = ()
 
     _instance: 'ClassVar[NoValue | None]' = None
+    _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls) -> 'NoValue':
         """
         :returns: The ``NoValue`` singleton instance.
         """
         if cls._instance is None:
-            cls._instance = super(NoValue, cls).__new__(cls)
+            with cls._lock:
+                if cls._instance is None:
+                    cls._instance = super(NoValue, cls).__new__(cls)
         return cls._instance
 
     def __init__(self) -> None:

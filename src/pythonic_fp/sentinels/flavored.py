@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Sentinel values of different (hashable) flavors. Can be used
+"""
+Flavored Sentinels
+==================
+
+Sentinel values of different (hashable) flavors. Can be used
 with functions or classes.
 
 .. note::
@@ -34,7 +38,6 @@ with functions or classes.
    - does not clash with end user code
 
      - which may use either ``None`` or ``()`` as their "sentinel" values.
-
 
 """
 import threading
