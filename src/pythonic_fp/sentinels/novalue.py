@@ -82,6 +82,9 @@ class NoValue:
     _instance: 'ClassVar[NoValue | None]' = None
 
     def __new__(cls) -> 'NoValue':
+        """
+        :returns: The ``NoValue`` singleton instance.
+        """
         if cls._instance is None:
             cls._instance = super(NoValue, cls).__new__(cls)
         return cls._instance

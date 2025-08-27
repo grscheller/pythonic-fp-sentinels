@@ -15,7 +15,7 @@
 """Sentinel values of different flavors. Can be used
 with functions or classes.
 
-**Some Use Casses**
+**Some Use Cases**
 
 Could be used like an Enum.
 
@@ -107,6 +107,10 @@ class Sentinel[H]:
     _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
+        """
+        "param flavor: Hashable value to determine the flavor" of the ``Sentinel``.
+        :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
+        """
         if flavor not in cls._flavors:
             with cls._lock:
                 if flavor not in cls._flavors:
