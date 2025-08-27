@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Sentinel values of different flavors. Can be used
+"""Sentinel values of different (hashable) flavors. Can be used
 with functions or classes.
 
-**Some Use Casses**
+**Some Use Cases**
 
 Could be used like an Enum.
 
@@ -87,7 +87,7 @@ yet still be able to store ``None`` as a value.
    - don't export when using as a hidden implementation detail.
    - does not clash with end user code
 
-     - which may use ``None`` or ``()`` as their "sentinel" values.
+     - which may use either ``None`` or ``()`` as their "sentinel" values.
 
 
 """
@@ -107,6 +107,10 @@ class Sentinel[H]:
     _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
+        """
+        "param flavor: Hashable value to determine the flavor" of the ``Sentinel``.
+        :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
+        """
         if flavor not in cls._flavors:
             with cls._lock:
                 if flavor not in cls._flavors:

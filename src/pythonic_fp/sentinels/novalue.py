@@ -14,10 +14,13 @@
 
 """Singleton class representing a missing value.
 
-In untyped Python, both ``None`` and ``()`` are often used as sentinel values.
-When typing tools like MyPy are used, both are shoe-horded into Union types.
+In untyped Python, both ``None`` and ``()`` are often used by end users
+and libraries as sentinel values. I prefer to think of them as
 
-``NoValue()`` is a singleton object representing a missing value.
+- ``None``: returned (or returns) no values
+- ``()``: an empty, possibly typed, but still iterable collection
+
+While ``NoValue()`` is a singleton object representing a missing value.
 
 Given variables
 
@@ -82,6 +85,9 @@ class NoValue:
     _instance: 'ClassVar[NoValue | None]' = None
 
     def __new__(cls) -> 'NoValue':
+        """
+        :returns: The ``NoValue`` singleton instance.
+        """
         if cls._instance is None:
             cls._instance = super(NoValue, cls).__new__(cls)
         return cls._instance
