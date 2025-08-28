@@ -48,7 +48,7 @@ If one or both of theses values are missing, then what is there to compare?
    | 57        | false     | false  | true   |
    +-----------+-----------+--------+--------+
 
-Same for not equal.
+Similarly for not equals.
 
 .. table:: ``x != y``
 
@@ -62,18 +62,17 @@ Same for not equal.
    | 57        | false     | true   | false  |
    +-----------+-----------+--------+--------+
 
-Of course, we can also compare directly by identity with
-``is`` and ``is nor``.
-
 .. note::
 
-    Threadsafe.
+   Threadsafe.
 
 .. warning::
 
-    Non-standard (unpythonic?) ``==`` and ``!=`` comparison operators.
+   Do not use ``==`` or ``!=`` to identify ``NoValue()``,  compare
+   directly by identity using ``is`` and ``is not``.
 
 """
+
 import threading
 from typing import ClassVar, final
 
@@ -94,7 +93,7 @@ class NoValue:
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
-                    cls._instance = super(NoValue, cls).__new__(cls)
+                    cls._instance = super().__new__(cls)
         return cls._instance
 
     def __init__(self) -> None:

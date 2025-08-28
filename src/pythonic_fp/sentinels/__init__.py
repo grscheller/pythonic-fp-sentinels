@@ -16,15 +16,15 @@
 Sentinels
 =========
 
-Sentinel classes implemented as singletons.
+Sentinel classes implemented as singletons, ``H`` is bounded by Hashable.
 
-+--------------+------------------------+-------------------------------------------------+
-| Module       | Sentinel               | Represents                                      |
-+==============+========================+=================================================+
-| ``novalue``  | ``NoValue()``          | actually missing value, not potentially missing |
-+--------------+------------------------+-------------------------------------------------+
-| ``flavored`` | ``Sentinel(hashable)`` | distinct sentinels indexed by a hashable values |
-+--------------+------------------------+-------------------------------------------------+
++--------------+-------------------+-------------------------------------------------+
+| Module       | Sentinel          | Represents                                      |
++==============+===================+=================================================+
+| ``novalue``  | ``NoValue()``     | actually missing value, not potentially missing |
++--------------+-------------------+-------------------------------------------------+
+| ``flavored`` | ``Sentinel[H]()`` | distinct sentinels indexed by hashable values   |
++--------------+-------------------+-------------------------------------------------+
 
 """
 

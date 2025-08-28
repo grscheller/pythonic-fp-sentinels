@@ -40,16 +40,17 @@ with functions or classes.
      - which may use either ``None`` or ``()`` as their "sentinel" values.
 
 """
+
 import threading
 from typing import ClassVar, final, Hashable, TypeVar
 
+H = TypeVar('H', bound=Hashable)
+
 __all__ = ['Sentinel']
 
-H = TypeVar("H", bound=Hashable)
 
 @final
 class Sentinel[H]:
-
     __slots__ = ('_flavor',)
 
     _flavors: 'dict[H, Sentinel[H]]' = {}
@@ -63,7 +64,7 @@ class Sentinel[H]:
         if flavor not in cls._flavors:
             with cls._lock:
                 if flavor not in cls._flavors:
-                    cls._flavors[flavor] = super(Sentinel, cls).__new__(cls)
+                    cls._flavors[flavor] = super().__new__(cls)
         return cls._flavors[flavor]
 
     def __init__(self, flavor: H) -> None:

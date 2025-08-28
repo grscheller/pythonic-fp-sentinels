@@ -17,8 +17,7 @@ from pythonic_fp.sentinels.flavored import Sentinel
 
 
 class MyClass:
-    _secret: Final[ClassVar[str]] = '_secret_str'
-    _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel(_secret)
+    _sentinel: Final[ClassVar[Sentinel[str]]] = Sentinel('_secret_str')
 
     @overload
     def __init__(self) -> None: ...
