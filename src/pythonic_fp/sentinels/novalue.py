@@ -80,16 +80,13 @@ __all__ = ['NoValue']
 
 
 @final
-class NoValue:
+class NoValue():
     __slots__ = ()
 
     _instance: 'ClassVar[NoValue | None]' = None
     _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls) -> 'NoValue':
-        """
-        :returns: The ``NoValue`` singleton instance.
-        """
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
@@ -97,6 +94,10 @@ class NoValue:
         return cls._instance
 
     def __init__(self) -> None:
+        """
+        :returns: The ``NoValue`` singleton instance.
+        :rtype: ``NoValue``
+        """
         return
 
     def __repr__(self) -> str:

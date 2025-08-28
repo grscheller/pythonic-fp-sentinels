@@ -50,17 +50,13 @@ __all__ = ['Sentinel']
 
 
 @final
-class Sentinel[H]:
+class Sentinel[H]():
     __slots__ = ('_flavor',)
 
     _flavors: 'dict[H, Sentinel[H]]' = {}
     _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls, flavor: H) -> 'Sentinel[H]':
-        """
-        :param flavor: Hashable value to determine the "flavor" of the ``Sentinel``.
-        :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
-        """
         if flavor not in cls._flavors:
             with cls._lock:
                 if flavor not in cls._flavors:
@@ -68,6 +64,11 @@ class Sentinel[H]:
         return cls._flavors[flavor]
 
     def __init__(self, flavor: H) -> None:
+        """
+        :param flavor: Hashable value of type ``H``.
+        :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
+        :rtype: ``Sentinel[H]``
+        """
         if not hasattr(self, '_flavor'):
             self._flavor = flavor
 
