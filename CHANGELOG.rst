@@ -18,12 +18,12 @@ Releases and Important Milestones
 ---------------------------------
 
 2.0.0 - 2025-08-28
-~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Corrected some documentation irregularities.
 
-2.0.0 - 2025-08-27
-~~~~~~~~~~~
+PyPI v2.0.0 - 2025-08-27
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 First PyPI release as pythonic-fp-sentinels.
 
@@ -34,8 +34,7 @@ GitHub repo renamed pythonic-fp-sentinels. The singletons package effort will be
 continued as the sentinel package. PyPI pythonic-fp-singletons project deprecated
 in favor of pythonic-fp-sentinels project.
 
-
-1.0.0+ - 2025-08-14
+Update - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~
 
 Last development version as pythonic-fp-singletons.
@@ -54,9 +53,8 @@ Last development version as pythonic-fp-singletons.
   - from declaring multiple singletons with strings
   - to declaring multiple "flavors" of any hashable type
 
-
-1.0.0 - 2025-08-02
-~~~~~~~~~~~~~~~~~~
+PyPI v1.0.0 - 2025-08-02
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Moved singletons.py from fptools. Also incorporated bool.py into the
 singleton's package.
