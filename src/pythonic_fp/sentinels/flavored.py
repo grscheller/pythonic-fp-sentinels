@@ -16,41 +16,45 @@
 Flavored Sentinels
 ==================
 
-Sentinel values of different (hashable) flavors. Can be used
+Sentinel values labeled by different (hashable) flavors. Can be used
 with functions or classes.
 
 .. note::
 
-   Threadsafe.
+    Threadsafe.
 
 .. note::
 
-   Can be compared using ``==`` and ``!=``. A flavored sentinel
-   value always equals itself and never equals anything else,
-   especially other flavored sentinel values.
+    Can be compared using ``==`` and ``!=``. A flavored sentinel
+    value always equals itself and never equals anything else,
+    especially other flavored sentinel values.
 
-   To ensure that reference equality is used put the known
-   sentinel value first.
+    Useful for union types where the ``Sentinel[H]`` is one of the
+    types making up the union.
+
+    To ensure that reference equality is used, put the known
+    sentinel value first in the comparison.
 
 .. tip::
 
-   - don't export when using as a hidden implementation detail.
-   - does not clash with end user code
+    Use as a hidden implementation detail when creating "optional"
+    arguments to functions and methods. Do not export the sentinel
+    value.
 
-     - which may use either ``None`` or ``()`` as their "sentinel" values.
+    - does not clash with end user code
+
+      - which may be using either ``None`` or ``()`` as a "sentinel" values
 
 """
 
 import threading
-from typing import ClassVar, final, Hashable, TypeVar
-
-H = TypeVar('H', bound=Hashable)
+from typing import ClassVar, final, Hashable
 
 __all__ = ['Sentinel']
 
 
 @final
-class Sentinel[H]():
+class Sentinel[H: Hashable]():
     __slots__ = ('_flavor',)
 
     _flavors: 'dict[H, Sentinel[H]]' = {}

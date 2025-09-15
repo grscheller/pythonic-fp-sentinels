@@ -23,7 +23,7 @@ Sentinel classes implemented as singletons, ``H`` is bounded by Hashable.
 +==============+===================+=================================================+
 | ``novalue``  | ``NoValue()``     | actually missing value, not potentially missing |
 +--------------+-------------------+-------------------------------------------------+
-| ``flavored`` | ``Sentinel[H]()`` | distinct sentinels indexed by hashable values   |
+| ``flavored`` | ``Sentinel[H]()`` | distinct sentinels labeled by hashable values   |
 +--------------+-------------------+-------------------------------------------------+
 
 """

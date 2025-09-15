@@ -38,38 +38,38 @@ If one or both of theses values are missing, then what is there to compare?
 
 .. table:: ``x == y``
 
-   +-----------+-----------+--------+--------+
-   |    x∖y    | NoValue() | 42     | 57     |
-   +===========+===========+========+========+
-   | NoValue() | false     | false  | false  |
-   +-----------+-----------+--------+--------+
-   | 42        | false     | true   | false  |
-   +-----------+-----------+--------+--------+
-   | 57        | false     | false  | true   |
-   +-----------+-----------+--------+--------+
+    +-----------+-----------+--------+--------+
+    |    x∖y    | NoValue() | 42     | 57     |
+    +===========+===========+========+========+
+    | NoValue() | false     | false  | false  |
+    +-----------+-----------+--------+--------+
+    | 42        | false     | true   | false  |
+    +-----------+-----------+--------+--------+
+    | 57        | false     | false  | true   |
+    +-----------+-----------+--------+--------+
 
 Similarly for not equals.
 
 .. table:: ``x != y``
 
-   +-----------+-----------+--------+--------+
-   |    x∖y    | NoValue() | 42     | 57     |
-   +===========+===========+========+========+
-   | NoValue() | false     | false  | false  |
-   +-----------+-----------+--------+--------+
-   | 42        | false     | false  | true   |
-   +-----------+-----------+--------+--------+
-   | 57        | false     | true   | false  |
-   +-----------+-----------+--------+--------+
+    +-----------+-----------+--------+--------+
+    |    x∖y    | NoValue() | 42     | 57     |
+    +===========+===========+========+========+
+    | NoValue() | false     | false  | false  |
+    +-----------+-----------+--------+--------+
+    | 42        | false     | false  | true   |
+    +-----------+-----------+--------+--------+
+    | 57        | false     | true   | false  |
+    +-----------+-----------+--------+--------+
 
 .. note::
 
-   Threadsafe.
+    Threadsafe.
 
 .. warning::
 
-   Do not use ``==`` or ``!=`` to identify ``NoValue()``,  compare
-   directly by identity using ``is`` and ``is not``.
+    Do not use ``==`` or ``!=`` to identify ``NoValue()``,  compare
+    directly by identity using ``is`` and ``is not``.
 
 """
 
