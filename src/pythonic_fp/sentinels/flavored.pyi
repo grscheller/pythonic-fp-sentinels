@@ -1,9 +1,8 @@
-from typing import Hashable, TypeVar
+from typing import Hashable
 
 __all__ = ['Sentinel']
 
-H = TypeVar('H', bound=Hashable)
-
-class Sentinel[H]:
+class Sentinel[H: Hashable]:
     def __new__(cls, flavor: H) -> Sentinel[H]: ...
     def __init__(self, flavor: H) -> None: ...
+    def flavor(self) -> H: ...

@@ -29,7 +29,7 @@ with functions or classes.
     value always equals itself and never equals anything else,
     especially other flavored sentinel values.
 
-    Useful for union types where the ``Sentinel[H]`` is one of the
+    Useful for union types where ``Sentinel[H]`` is one of the
     types making up the union.
 
     To ensure that reference equality is used, put the known
@@ -54,7 +54,7 @@ __all__ = ['Sentinel']
 
 
 @final
-class Sentinel[H: Hashable]():
+class Sentinel[H: Hashable]:
     __slots__ = ('_flavor',)
 
     _flavors: 'dict[H, Sentinel[H]]' = {}
@@ -69,12 +69,18 @@ class Sentinel[H: Hashable]():
 
     def __init__(self, flavor: H) -> None:
         """
-        :param flavor: Hashable value of type ``H``.
+        :param flavor: Some Hashable value of generic type ``H``.
         :returns: The ``Sentinel`` singleton instance with flavor ``flavor``.
-        :rtype: ``Sentinel[H]``
+        :rtype: ``Sentinel[H]`` where ``H`` is a subtype of Hashable.
         """
         if not hasattr(self, '_flavor'):
             self._flavor = flavor
 
     def __repr__(self) -> str:
         return "Sentinel('" + repr(self._flavor) + "')"
+
+    def flavor(self) -> H:
+        """
+        :returns: The sentinel's flavor. A ``Hashable`` value of type ``H``.
+        """
+        return self._flavor
