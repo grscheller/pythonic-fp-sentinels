@@ -16,6 +16,8 @@
 Sentinels
 =========
 
+**DEPRECATED**, use the ``pythonic_fp.gadgets.sentinels`` module instead.
+
 Sentinel classes implemented as singletons, ``H`` is bounded by Hashable.
 
 +--------------+-------------------+-------------------------------------------------+

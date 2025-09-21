@@ -87,18 +87,14 @@ class NoValue():
     _lock: ClassVar[threading.Lock] = threading.Lock()
 
     def __new__(cls) -> 'NoValue':
+        """
+        :returns: The ``NoValue`` singleton instance.
+        """
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
                     cls._instance = super().__new__(cls)
         return cls._instance
-
-    def __init__(self) -> None:
-        """
-        :returns: The ``NoValue`` singleton instance.
-        :rtype: ``NoValue``
-        """
-        return
 
     def __repr__(self) -> str:
         return 'NoValue()'

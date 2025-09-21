@@ -10,7 +10,7 @@ keywords = [
   "singleton",
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 7 - Inactive",
   "Framework :: Pytest",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
