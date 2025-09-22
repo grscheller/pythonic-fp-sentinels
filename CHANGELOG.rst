@@ -17,6 +17,19 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 2.1.1 - 2025-08-28 (Final Relase)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DEPRECATED!!!
+
+Will push to PyPI and archive it there when all over pythonic-fp
+projects are moved off of it and migrated to pythonic-fp-gadgets.
+
+- maintainer decided to deprecate this effort on 09-21-2025
+- all code copied to the grscheller/pythonic-fp-gadgets GitHub repo
+- effort will continue under the PyPI pythonic-fp-gadgets project
+  - both submodules are more or less feature complete
+
 PyPI 2.1.0 - 2025-08-28
 ~~~~~~~~~~~~~~~~~~~~~~~
 
