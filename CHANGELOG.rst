@@ -17,7 +17,12 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 2.1.1 - 2025-08-28 (Final Relase)
+PyPI 2.1.3 - 2025-08-28 (Really Final Release)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Goofed documents prior 2 "final" releases. This is the final release.
+
+PyPI 2.1.1 - 2025-08-28 (Final Release)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 DEPRECATED!!!
